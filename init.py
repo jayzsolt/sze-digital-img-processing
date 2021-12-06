@@ -7,7 +7,7 @@ output_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\output\\02.png'
 
 # lojuk be kb a zold hatarait
 
-low_green = np.array([25, 52, 72])
+low_green = np.array([21, 52, 32])
 high_green = np.array([102, 255, 255])
 
 
