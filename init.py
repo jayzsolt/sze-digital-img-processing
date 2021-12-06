@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-input_img = 'C:\\Users\\micro\\Documents\\sze-digital-img-processing\\input\\01.png'
+input_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\input\\01.png'
     
 
 # lojuk be kb a zold hatarait
