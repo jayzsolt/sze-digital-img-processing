@@ -55,7 +55,7 @@ greyscale = cv2.cvtColor(res1, cv2.COLOR_BGR2GRAY)
 cv2.imshow('eredmeny', greyscale)
 cv2.waitKey(0)
 
-if not cv2.imwrite(output_img,greyscale) 
+if not cv2.imwrite(output_img,greyscale):
     raise Exception("Hiba: output img nem hozhato letre.")
 
 
