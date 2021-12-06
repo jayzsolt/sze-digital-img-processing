@@ -77,6 +77,19 @@ if not cv2.imwrite(output_img,res2):
 
 
 
+binary = cv2.bitwise_not(res2)
+
+(_,contours,_) = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+for contour in contours:
+    (x,y,w,h) = cv2.boundingRect(contour)
+    cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
+    
+
+cv2.imshow('eredmeny', img)
+cv2.waitKey(0)
+
+
 
 # # approach 3 
 #thresh = cv2.threshold(res2, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
@@ -124,60 +137,60 @@ if not cv2.imwrite(output_img,res2):
 
 
 
-
-
-
-
-def showOpenCVImagesGrid(images, x, y, titles=None, axis="on"):
-    fig = plt.figure()
-    i = 1
-    for image in images:
-        copy = image.copy()
-        channel = len(copy.shape)
-        cmap = None
-        if channel == 2:
-            cmap = "gray"
-        elif channel == 3:
-            copy = cv2.cvtColor(copy, cv2.COLOR_BGR2RGB)
-        elif channel == 4:
-            copy = cv2.cvtColor(copy, cv2.COLOR_BGRA2RGBA)
-
-        fig.add_subplot(x, y, i)
-        if titles is not None:
-            plt.title(titles[i-1])
-        plt.axis(axis)
-        plt.imshow(copy, cmap=cmap)
-        i += 1
-    plt.show()
-
-
-def drawLines(image, lines, thickness=1):
-    for line in lines:
-        # print("line="+str(line))
-        cv2.line(image, (line[0], line[1]), (line[2], line[3]),
-                (0, 0, 255), thickness)
-
-
-def drawContours(image, contours, thickness=1):
-    i = 0
-    for contour in contours:
-        cv2.drawContours(image, [contours[i]], i, (0, 255, 0), thickness)
-        area = cv2.contourArea(contour)
-        i += 1
-        
-        
-        
-        
-image = res2
-
-edges = cv2.Canny(image, 50, 200)
-lines = cv2.HoughLinesP(edges, 1, cv2.cv.CV_PI/180, 50, minLineLength=50, maxLineGap=10)[0]
-linesImage = image.copy()
-drawLines(linesImage, lines, thickness=10)
-
-contoursImage = image.copy()
-(contours, hierarchy) = cv2.findContours(res2.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-drawContours(contoursImage, contours, thickness=10)
-
-showOpenCVImagesGrid([image, edges, linesImage, contoursImage], 2, 2, titles=["original image", "canny image", "lines image", "contours image"])
+# approach 4
+#
+#
+#
+#def showOpenCVImagesGrid(images, x, y, titles=None, axis="on"):
+#    fig = plt.figure()
+#    i = 1
+#    for image in images:
+#        copy = image.copy()
+#        channel = len(copy.shape)
+#        cmap = None
+#        if channel == 2:
+#            cmap = "gray"
+#        elif channel == 3:
+#            copy = cv2.cvtColor(copy, cv2.COLOR_BGR2RGB)
+#        elif channel == 4:
+#            copy = cv2.cvtColor(copy, cv2.COLOR_BGRA2RGBA)
+#
+#        fig.add_subplot(x, y, i)
+#        if titles is not None:
+#            plt.title(titles[i-1])
+#        plt.axis(axis)
+#        plt.imshow(copy, cmap=cmap)
+#        i += 1
+#    plt.show()
+#
+#
+#def drawLines(image, lines, thickness=1):
+#    for line in lines:
+#        # print("line="+str(line))
+#        cv2.line(image, (line[0], line[1]), (line[2], line[3]),
+#                (0, 0, 255), thickness)
+#
+#
+#def drawContours(image, contours, thickness=1):
+#    i = 0
+#    for contour in contours:
+#        cv2.drawContours(image, [contours[i]], i, (0, 255, 0), thickness)
+#        area = cv2.contourArea(contour)
+#        i += 1
+#        
+#        
+#        
+#        
+#image = res2
+#
+#edges = cv2.Canny(image, 50, 200)
+#lines = cv2.HoughLinesP(edges, 1, cv2.cv.CV_PI/180, 50, minLineLength=50, maxLineGap=10)[0]
+#linesImage = image.copy()
+#drawLines(linesImage, lines, thickness=10)
+#
+#contoursImage = image.copy()
+#(contours, hierarchy) = cv2.findContours(res2.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+#
+#drawContours(contoursImage, contours, thickness=10)
+#
+#showOpenCVImagesGrid([image, edges, linesImage, contoursImage], 2, 2, titles=["original image", "canny image", "lines image", "contours image"])
