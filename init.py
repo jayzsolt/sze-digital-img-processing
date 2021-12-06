@@ -44,3 +44,10 @@ cv2.waitKey(0)
 
 
 
+# 2 --- szurkearnyalatos
+
+greyscale = cv2.cvtColor(res1, cv2.COLOR_BGR2GRAY)
+    
+cv2.imshow('eredmeny', greyscale)
+cv2.waitKey(0)
+
