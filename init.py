@@ -1,7 +1,8 @@
 import numpy as np
 import cv2
 
-input_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\input\\01.png'
+input_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\input\\02.png'
+output_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\output\\02.png'
     
 
 # lojuk be kb a zold hatarait
@@ -12,6 +13,9 @@ high_green = np.array([102, 255, 255])
 
 # kepfeldolgozas
 img = cv2.imread(input_img)
+
+if not img:
+    raise Exception("Hiba: input img nem talalhato.")
 
 #kicsinyitsunk, hogy hatekonyabb legyen a feldolgozas
 img = cv2.resize(img, (900, 650), interpolation=cv2.INTER_CUBIC)
@@ -50,4 +54,8 @@ greyscale = cv2.cvtColor(res1, cv2.COLOR_BGR2GRAY)
     
 cv2.imshow('eredmeny', greyscale)
 cv2.waitKey(0)
+
+if not cv2.imwrite(output_img,greyscale) 
+    raise Exception("Hiba: output img nem hozhato letre.")
+
 
