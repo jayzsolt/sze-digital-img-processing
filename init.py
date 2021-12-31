@@ -2,20 +2,38 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
-# Témakörök:
-
-# Canny transition    https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_canny/py_canny.html
-# Hough transform     https://en.wikipedia.org/wiki/Hough_transform
-# 
-
-
-
 # win esetén char escape miatt mindenhol dupla backslash hasznalando.
-input_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\input\\02.png'
-output_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\output\\02.png'
+input_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\input\\07.png'
+output_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\output\\07.png'
+
+imgTargetWidth = 606
+imgTargetHeight = 630
+
+imgTargetWidth = 601
+imgTargetHeight = 434
+
+#minIntenzitas = 150
+#minIntenzitas = 110
+minIntenzitas = 130
+
+maxIntenzitas = 255
 
 
-    
+def refineContours(inputCtrs, minKerulet, maxKerulet):
+    retContours = []
+    for i in inputCtrs:
+        currentKerulet = cv2.arcLength(i,True)
+        
+        if (currentKerulet >= minKerulet and currentKerulet < maxKerulet):
+        # print(cv2.contourArea(i))
+        #if (cv2.contourArea(i) >= minTerulet and cv2.contourArea(i) < maxTerulet):
+            retContours.append(i)
+            
+    return retContours
+
+
+
+
 
 # lojuk be kb a zold hatarait
 
@@ -23,11 +41,11 @@ low_green = np.array([21, 52, 32])
 high_green = np.array([102, 255, 255])
 
 
-# kepfeldolgozas
+# elo-feldolgozas
 img = cv2.imread(input_img)
 
 #kicsinyitsunk, hogy hatekonyabb legyen a feldolgozas
-img = cv2.resize(img, (900, 650), interpolation=cv2.INTER_CUBIC)
+img = cv2.resize(img, (imgTargetWidth, imgTargetHeight), interpolation=cv2.INTER_CUBIC)
 
 
 # színek sorrendje BGR, es nem RGB !!!
@@ -50,44 +68,96 @@ res1 = cv2.bitwise_and(img, img, mask=mask)
 
 cv2.imshow("kiindulas", img)
 cv2.waitKey(0)
-cv2.imshow("maszk", mask)
-cv2.waitKey(0)
-cv2.imshow('eredmeny', res1)
-cv2.waitKey(0)
-
-
 
 # 2 --- szurkearnyalatos
 
 res2 = cv2.cvtColor(res1, cv2.COLOR_BGR2GRAY)
+
+
     
-cv2.imshow('eredmeny', res2)
+cv2.imshow('szurkearnyalatos', res2)
 cv2.waitKey(0)
 
-if not cv2.imwrite(output_img,res2):
-    raise Exception("Hiba: output img nem hozhato letre.")
-    # TODO output img nem készül el!!! win specifikus problema?
+#if not cv2.imwrite(output_img,res2):
+#    raise Exception("Hiba: output img nem hozhato letre.")
+#    # TODO output img nem készül el!!! win specifikus problema?
     
     
 
-    
+
 # 3 --- keressunk alakzatokat
 
 
+res3=cv2.GaussianBlur(res2,(5,5),1) 
+res4=cv2.Canny(res3,10,50) 
+
+res5 = res2
+res6 = res2
 
 
 
-binary = cv2.bitwise_not(res2)
+# valasszuk ki, milyen intenzitas felett szeretnenk dolgozni
 
-(_,contours,_) = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+ret, thresh = cv2.threshold(res3, minIntenzitas, maxIntenzitas, cv2.THRESH_BINARY)
 
-for contour in contours:
-    (x,y,w,h) = cv2.boundingRect(contour)
-    cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
-    
+cv2.imshow('Treshold szerint hangolt kep', thresh)
 
-cv2.imshow('eredmeny', img)
 cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+# contours1, hierarchy1 = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) # kevesbe hatekony, itt lenyegeben ugyanolyan eredmennyel
+contours1, hierarchy1 = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+img_alap_konturok = img.copy()
+cv2.drawContours(img_alap_konturok, contours1, -1, (0, 255, 0), cv2.FILLED, cv2.LINE_AA)
+# see the results
+cv2.imshow('Konturok osszes', img_alap_konturok)
+cv2.waitKey(0)
+
+
+contours2 = refineContours(contours1, 30, 500) # itt szurjuk ki a velhetoen nem epulet elemeket
+
+img_konturok_csokkentve = img.copy()
+cv2.drawContours(img_konturok_csokkentve, contours2, -1, (0, 255, 0), cv2.FILLED, cv2.LINE_AA)
+# see the results
+cv2.imshow('Konturok elso szures', img_konturok_csokkentve)
+cv2.waitKey(0)
+        
+
+
+cv2.destroyAllWindows()
+
+
+
+
+
+
+#
+#epsilon = 0.05*cv2.arcLength(i,True) # csak zart alakzatokat keresunk
+#            approx = cv2.approxPolyDP(i,epsilon,True)
+#
+#            if len(approx) == 4:
+
+
+
+
+#
+#
+#
+#
+#
+#binary = cv2.bitwise_not(res2)
+#
+#(_,contours,_) = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+#
+#for contour in contours:
+#    (x,y,w,h) = cv2.boundingRect(contour)
+#    cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
+#    
+#
+#cv2.imshow('eredmeny', img)
+#cv2.waitKey(0)
 
 
 
