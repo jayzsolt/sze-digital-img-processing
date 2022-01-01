@@ -63,11 +63,11 @@ A képfeldolgozás lépései:
 
 6. Kontúrok azonosítása
 
-7. Kontúrok közül a túlságosan kis méretű objektumok (pl. autó, kuka) ill. túl nagy méretű objektumok (pl. szintén sötét színű, szabályos alakú folyók) kiszűrése, kontúr kerülete ill. körülhatárolt területe alapján
+7. Kontúrok közül a túlságosan kis méretű objektumok (pl. autó, kuka) ill. túl nagy méretű objektumok (pl. szintén sötét színű, szabályos alakú folyók, hidak, utak) kiszűrése, kontúr kerülete ill. körülhatárolt területe alapján
 
-8. Objektum külső kontúr-vonalainak egymással bezárt szöge alapján fals pozitívak kiszűrése (ideális esetben az épületek közel derékszögű, jól kivehető határvonalakkal rendelkeznek)
+8. Objektum külső kontúr-vonalainak egymással bezárt szöge alapján fals pozitívak kiszűrése (ideális esetben az épületek oldalai, tetejük síkjai 45 ill 90 fokos szöget, vagy ahhoz közelit zárnak be, és jól kivehető határvonalakkal rendelkeznek)
 
-9. Eredményül a Python output ablakában az eredeti képre ráhelyezett maszkon zölddel besatírozva találhatók az azonsított épületek.
+9. Eredményül a Python output ablakában az eredeti képre ráhelyezett maszkon zölddel besatírozva találhatók az azonosított épületek.
 
 
 
