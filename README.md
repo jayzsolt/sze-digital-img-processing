@@ -7,7 +7,7 @@
 
 
 
-I. Rendszerkövetelmények
+###  I. Rendszerkövetelmények
 
 - 32 ill. 64 bites rendszer ill. dedikált GPU ajánlott. 
 
@@ -18,7 +18,8 @@ I. Rendszerkövetelmények
 
 - Az alábbi python library-k kerültek feltelepítésre: 
 
-`cycler          0.11.0
+```
+cycler          0.11.0
 kiwisolver      1.3.2
 matplotlib      3.5.0
 numpy           1.21.4
@@ -35,7 +36,8 @@ tomli           1.2.2
 pip             21.3.1
 setuptools      41.2.0
 tensorflow      2.5.0
-wrapt           1.13.0`
+wrapt           1.13.0
+```
 
 A program lineáris lefutású Python-kód, Oo alkalmazása nélkül. OpenCV-t használ, így az általa elfogadott raszter-képformátumokkal dolgozhatunk. 0-255 intenzitás közötti értékeket használunk.
 
@@ -43,8 +45,7 @@ A program lineáris lefutású Python-kód, Oo alkalmazása nélkül. OpenCV-t h
 =====================================
 
 
-II. Technikai dokumentáció
-
+### II. Technikai dokumentáció
 
 A képfeldolgozás lépései:
 
@@ -72,7 +73,7 @@ A képfeldolgozás lépései:
 
 
 
-III. A script használata:
+### III. A script használata:
 
 1. Nyissuk meg az init.py scriptet
 
@@ -92,7 +93,7 @@ input_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\input\\07.png'
 =====================================
 
 
-IV. Tesztelés, inputok
+### IV. Tesztelés, inputok
 
 A mellékelt input mappában több léptékű és forrású műholdkép-részlet adott.
 
@@ -106,8 +107,7 @@ A várt eredményektől függően további beállítási lehetőség nyílik:
 
 =====================================
 
-
-V. Ismert korlátok:
+### V. Ismert korlátok:
 
 - zöldtetős megoldás esetén az épületek felismerése kétséges.
 - világos burkolatú utak, parkolók időnként fals pozitív értékeket adnak
