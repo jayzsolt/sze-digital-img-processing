@@ -1,25 +1,24 @@
 # SZE img digital processing
 
-Épületek, objektumok felismerése műholdképeken
+## Épületek, objektumok felismerése műholdképeken
 
 ==========================================================================
 
 
 
 
-1. Rendszerkövetelmények
+I. Rendszerkövetelmények
 
-32 ill. 64 bites rendszer ill. dedikált GPU ajánlott. 
+- 32 ill. 64 bites rendszer ill. dedikált GPU ajánlott. 
 
-Kompatibilitás tesztelve Windows 10 x64 OS-en.
-kompatibilitás feltételezhető Unix-rendszereken is, de nem garantált.
+- Kompatibilitás tesztelve Windows 10 x64 OS-en.
+- Kompatibilitás feltételezhető Unix-rendszereken is, de nem garantált.
 
-Python 3.7.6 verziója ajánlott teszteléshez. 3.5-3.9 közötti verziókkal is vélhetően működik, de dependencia-problémák előfordulhatnak.
+- Python 3.7.6 verziója ajánlott teszteléshez. 3.5-3.9 közötti verziókkal is vélhetően működik, de dependencia-problémák előfordulhatnak.
 
-Az alábbi python library-k kerültek feltelepítésre: 
+- Az alábbi python library-k kerültek feltelepítésre: 
 
-
-cycler          0.11.0
+`cycler          0.11.0
 kiwisolver      1.3.2
 matplotlib      3.5.0
 numpy           1.21.4
@@ -36,22 +35,18 @@ tomli           1.2.2
 pip             21.3.1
 setuptools      41.2.0
 tensorflow      2.5.0
-wrapt           1.13.0
-
+wrapt           1.13.0`
 
 A program lineáris lefutású Python-kód, Oo alkalmazása nélkül. OpenCV-t használ, így az általa elfogadott raszter-képformátumokkal dolgozhatunk. 0-255 intenzitás közötti értékeket használunk.
-
 
 
 =====================================
 
 
-
-2. Technikai dokumentáció
+II. Technikai dokumentáció
 
 
 A képfeldolgozás lépései:
-
 
 1. Kép kicsinyítése (képfeldolgozás erőforrás-hatékonyságának növelése céljából)
 
@@ -77,7 +72,7 @@ A képfeldolgozás lépései:
 
 
 
-3. A script használata:
+III. A script használata:
 
 1. Nyissuk meg az init.py scriptet
 
@@ -91,34 +86,28 @@ input_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\input\\07.png'
 
 4. Futtassuk a scriptet standard módon parancssorból, paraméterek/argumentumok használata nélkül: 
 
-python init.py
-
+`python init.py`
 
 
 =====================================
 
 
-
-4. Tesztelés, inputok
+IV. Tesztelés, inputok
 
 A mellékelt input mappában több léptékű és forrású műholdkép-részlet adott.
 
 A várt eredményektől függően további beállítási lehetőség nyílik:
 
 - a zöldterületek RGB-tartományának meghatározásához ("mennyire zöld" a terület, amit ignorálni szeretnénk)
-
 - bináris treshold esetén, szürkeárnyalatban mely sötét ill. világos tartományokat szeretnénk figyelmen kívül hagyni
-
 - kép kicsinyítésének mértéke / target pixel x pixel képméret (arányos a képfeldolgozás ill. kontúrok generálásának sebességével, értelemszerűen)
-
 - körbezárt kontúrok minimum ill maximum kerülete, területe is szabályozható (ld. refineContours függvény)
 
 
 =====================================
 
 
-
-4. Ismert korlátok:
+V. Ismert korlátok:
 
 - zöldtetős megoldás esetén az épületek felismerése kétséges.
 - világos burkolatú utak, parkolók időnként fals pozitív értékeket adnak
