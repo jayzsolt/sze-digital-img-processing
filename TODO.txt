@@ -1,0 +1,29 @@
+TODO 
+====
+
+I. Tanarur által megadott kritériumok:
+
+1. tesztelés!
+
+- (matematikai eszközökkel lehet bizonyítani a működést, sok bemenettel arányos hatékonysági adatokat mutassunk ki)
+- (min 50-100 bemenet, dokumentációban is részletezd!)
+
+2. output: hasonlítsuk össze kézzel megadott megoldást vs. géppel generált outputot.
+
+>>> dokumentációban is. 
+
+3. cél a teljeskörű bemutatás, nem feltétlen a maximális elérhető hatékonyság.
+
+
+4. dokumentáció (felhasználói és fejlesztői) és a szoftver teszteléséhez szükséges bemeneti adatok.
+
+
+
+II. Saját backlog
+
+kitakart folyó-részletek nem elegendőek (pl Rába és összefolyás után jórészt nincs kitakarva)
+
+területek? írjuk fölé esetleg?
+kerületek szintén?
+
+

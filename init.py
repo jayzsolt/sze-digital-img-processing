@@ -47,6 +47,8 @@ img = cv2.imread(input_img)
 #kicsinyitsunk, hogy hatekonyabb legyen a feldolgozas
 img = cv2.resize(img, (imgTargetWidth, imgTargetHeight), interpolation=cv2.INTER_CUBIC)
 
+cv2.imshow("kiindulas", img)
+cv2.waitKey(0)
 
 # színek sorrendje BGR, es nem RGB !!!
 
@@ -64,10 +66,7 @@ mask = 255-mask
 res1 = cv2.bitwise_and(img, img, mask=mask)
 
 
-#eredmeny
-
-cv2.imshow("kiindulas", img)
-cv2.waitKey(0)
+#eredmenyek
 
 # 2 --- szurkearnyalatos
 
@@ -75,8 +74,8 @@ res2 = cv2.cvtColor(res1, cv2.COLOR_BGR2GRAY)
 
 
     
-cv2.imshow('szurkearnyalatos', res2)
-cv2.waitKey(0)
+#cv2.imshow('szurkearnyalatos', res2)
+#cv2.waitKey(0)
 
 #if not cv2.imwrite(output_img,res2):
 #    raise Exception("Hiba: output img nem hozhato letre.")
@@ -91,12 +90,18 @@ cv2.waitKey(0)
 res3=cv2.GaussianBlur(res2,(5,5),1) 
 res4=cv2.Canny(res3,10,50) 
 
+partialToShow1 = np.concatenate((res2, res3), axis=1)
+partialToShow2 = np.concatenate((partialToShow1, res4), axis=1)
+
+cv2.imshow("Kep", partialToShow2)
+cv2.waitKey(0)
+
 res5 = res2
 res6 = res2
 
 
 
-# valasszuk ki, milyen intenzitas felett szeretnenk dolgozni
+# valasszuk ki, milyen intenzitas felett/alatt szeretnenk dolgozni, avagy binary treshold
 
 ret, thresh = cv2.threshold(res3, minIntenzitas, maxIntenzitas, cv2.THRESH_BINARY)
 
@@ -112,8 +117,8 @@ contours1, hierarchy1 = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX
 img_alap_konturok = img.copy()
 cv2.drawContours(img_alap_konturok, contours1, -1, (0, 255, 0), cv2.FILLED, cv2.LINE_AA)
 # see the results
-cv2.imshow('Konturok osszes', img_alap_konturok)
-cv2.waitKey(0)
+#cv2.imshow('Konturok osszes', img_alap_konturok)
+#cv2.waitKey(0)
 
 
 contours2 = refineContours(contours1, 30, 500) # itt szurjuk ki a velhetoen nem epulet elemeket
@@ -121,7 +126,11 @@ contours2 = refineContours(contours1, 30, 500) # itt szurjuk ki a velhetoen nem 
 img_konturok_csokkentve = img.copy()
 cv2.drawContours(img_konturok_csokkentve, contours2, -1, (0, 255, 0), cv2.FILLED, cv2.LINE_AA)
 # see the results
-cv2.imshow('Konturok elso szures', img_konturok_csokkentve)
+#cv2.imshow('Konturok elso szures', img_konturok_csokkentve)
+#cv2.waitKey(0)
+
+partialToShow4 = np.concatenate((img_alap_konturok, img_konturok_csokkentve), axis=1)
+cv2.imshow('Konturok elso szures', partialToShow4)
 cv2.waitKey(0)
         
 
