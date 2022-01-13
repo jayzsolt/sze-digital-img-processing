@@ -27,3 +27,116 @@ területek? írjuk fölé esetleg?
 kerületek szintén?
 
 
+
+	0. további megnyitott lapok
+
+
+	1. mostani code improve
+
+	2. code részleteinek kifejtése
+
+	3. prezentáció gyorsan az egészről?
+
+	4. ideális megoldás teamvieweren?
+
+	5. ideálisból meríteni még valami ötletet?
+
+	6. tanulj elméletet
+
+	
+
+
+python
+
+opencv - image vision library
+
+imageai - deep learning library for vision
+
+conda/anaconda - python data science platform
+
+Jupyter - web-based interactive environment to create and share documents, texts, visualizations. Python scripts can be "created" inside your Jupyter Notebook.
+
+
+
+
+
+
+
+
+
+
+III. Források
+
+https://learnopencv.com/contour-detection-using-opencv-python-c/
+
+https://www.codeproject.com/Articles/5270236/Installing-OpenCV-and-ImageAI-for-Object-Detection
+
+https://github.com/OlafenwaMoses/ImageAI
+
+https://imageai.readthedocs.io/en/latest/
+
+https://www.programcreek.com/python/example/70440/cv2.findContours
+
+https://answers.opencv.org/question/230784/finding-rectangle-contours-in-an-image/
+
+https://stackoverflow.com/questions/46486078/opencv-how-to-find-rectangle-contour-of-a-rectangle-with-round-corner/46486302
+
+https://stackoverflow.com/questions/279410/opencv-object-detection-center-point
+
+https://stackoverflow.com/questions/1817442/how-to-recognize-rectangles-in-this-image
+
+https://stackoverflow.com/questions/2068013/finding-location-of-rectangles-in-an-image-with-opencv
+
+https://coderedirect.com/questions/355168/python-opencv-morphologyex-remove-specific-color
+
+https://stackoverflow.com/questions/42592234/python-opencv-morphologyex-remove-specific-color
+
+https://stackabuse.com/object-detection-with-imageai-in-python/
+
+https://arxiv.org/ftp/arxiv/papers/1603/1603.06201.pdf
+
+https://towardsdatascience.com/announcing-yoltv4-improved-satellite-imagery-object-detection-f5091e913fad
+
+https://stackoverflow.com/questions/59565581/detect-multiple-rectangles-in-image
+
+https://www.pyimagesearch.com/2016/02/08/opencv-shape-detection/
+
+https://www.youtube.com/watch?v=Fchzk1lDt7Q
+
+https://medium.com/deepquestai/train-object-detection-ai-with-6-lines-of-code-6d087063f6ff
+
+https://towardsdatascience.com/object-detection-with-10-lines-of-code-d6cb4d86f606
+
+https://towardsdatascience.com/building-a-real-time-object-recognition-app-with-tensorflow-and-opencv-b7a2b4ebdc32
+
+https://github.com/datitran/object_detector_app
+
+https://docs.bitnami.com/tutorials/perform-image-recognition-tensorflow-kubernetes/
+
+https://hub.docker.com/layers/tensorflow/tensorflow/2.2.0-gpu/images/sha256-3f8f06cdfbc09c54568f191bbc54419b348ecc08dc5e031a53c22c6bba0a252e?context=explore
+
+https://www.tensorflow.org/install/docker
+
+https://github.com/robmarkcole/satellite-image-deep-learning
+
+https://blog.goodaudience.com/detecting-informal-settlements-using-satellite-imagery-and-convolutional-neural-networks-d571a819bf44
+
+https://github.com/dymaxionlabs/ap-latam
+
+https://github.com/dymaxionlabs/ap-latam/blob/master/aplatam/detect.py
+
+https://raoofnaushad7.medium.com/applying-deep-learning-on-satellite-imagery-classification-5f2588b932c1
+
+https://medium.com/vooban-ai/satellite-image-segmentation-a-workflow-with-u-net-7ff992b2a56e
+
+https://www.kaggle.com/aamaia/small-vehicles
+
+https://github.com/motokimura/spacenet_building_detection/tree/master/src/models
+
+https://stackoverflow.com/questions/61166180/detect-rectangles-in-opencv-4-2-0-using-python-3-7
+
+https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=arclength#arclength
+
+
+
+
