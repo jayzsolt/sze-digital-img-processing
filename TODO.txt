@@ -139,4 +139,6 @@ https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_de
 
 https://learnopencv.com/contour-detection-using-opencv-python-c/
 
+https://www.geeksforgeeks.org/find-and-draw-contours-using-opencv-python/
+
 

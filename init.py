@@ -102,14 +102,19 @@ res6 = res2
 
 
 
-# binary threshold, avagy valasszuk ki, milyen intenzitas felett/alatti ertekekkel szeretnenk dolgozni
+# kettos kuszoboles, avagy binary threshold, valasszuk ki, milyen intenzitas felett/alatti ertekekkel szeretnenk dolgozni
 
 ret, thresh = cv2.threshold(res3, minIntenzitas, maxIntenzitas, cv2.THRESH_BINARY)
 
-cv2.imshow('Binary threshold alkalmazva', thresh)
+cv2.imshow('Kettos kuszoboles (binary threshold) alkalmazva', thresh)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
+
+
+
+
+# hiszterezis kuszoboles
 
 
 
