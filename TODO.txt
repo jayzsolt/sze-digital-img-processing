@@ -137,6 +137,6 @@ https://stackoverflow.com/questions/61166180/detect-rectangles-in-opencv-4-2-0-u
 
 https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=arclength#arclength
 
-
+https://learnopencv.com/contour-detection-using-opencv-python-c/
 
 

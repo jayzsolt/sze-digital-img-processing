@@ -14,7 +14,7 @@ imgTargetHeight = 434
 
 #minIntenzitas = 150
 #minIntenzitas = 110
-minIntenzitas = 130
+minIntenzitas = 60
 
 maxIntenzitas = 255
 
@@ -23,11 +23,13 @@ def refineContours(inputCtrs, minKerulet, maxKerulet):
     retContours = []
     for i in inputCtrs:
         currentKerulet = cv2.arcLength(i,True)
+        print(currentKerulet)
         
         if (currentKerulet >= minKerulet and currentKerulet < maxKerulet):
         # print(cv2.contourArea(i))
         #if (cv2.contourArea(i) >= minTerulet and cv2.contourArea(i) < maxTerulet):
             retContours.append(i)
+            
             
     return retContours
 
@@ -90,10 +92,9 @@ res2 = cv2.cvtColor(res1, cv2.COLOR_BGR2GRAY)
 res3=cv2.GaussianBlur(res2,(5,5),1) 
 res4=cv2.Canny(res3,10,50) 
 
-partialToShow1 = np.concatenate((res2, res3), axis=1)
-partialToShow2 = np.concatenate((partialToShow1, res4), axis=1)
+partialToShow1 = np.concatenate((res3, res4), axis=1)
 
-cv2.imshow("Kep", partialToShow2)
+cv2.imshow("Zold teruletek nelkul, gauss blur & Konturok", partialToShow1)
 cv2.waitKey(0)
 
 res5 = res2
@@ -101,27 +102,44 @@ res6 = res2
 
 
 
-# valasszuk ki, milyen intenzitas felett/alatt szeretnenk dolgozni, avagy binary treshold
+# binary threshold, avagy valasszuk ki, milyen intenzitas felett/alatti ertekekkel szeretnenk dolgozni
 
 ret, thresh = cv2.threshold(res3, minIntenzitas, maxIntenzitas, cv2.THRESH_BINARY)
 
-cv2.imshow('Treshold szerint hangolt kep', thresh)
-
+cv2.imshow('Binary threshold alkalmazva', thresh)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 
+
+
+
+
+
+
+
 # contours1, hierarchy1 = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) # kevesbe hatekony, itt lenyegeben ugyanolyan eredmennyel
-contours1, hierarchy1 = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+konturok1, hierarchy1 = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
 img_alap_konturok = img.copy()
-cv2.drawContours(img_alap_konturok, contours1, -1, (0, 255, 0), cv2.FILLED, cv2.LINE_AA)
+cv2.drawContours(img_alap_konturok, konturok1, -1, (0, 255, 0), cv2.FILLED, cv2.LINE_AA)
 # see the results
 #cv2.imshow('Konturok osszes', img_alap_konturok)
 #cv2.waitKey(0)
 
+img_konturok_kiemel = img.copy()
 
-contours2 = refineContours(contours1, 30, 500) # itt szurjuk ki a velhetoen nem epulet elemeket
+for i, contour in enumerate(konturok1): # loop over one contour area
+
+   for j, contour_point in enumerate(contour): # loop over the points
+
+       # draw a circle on the current contour coordinate
+       cv2.circle(img_konturok_kiemel, ((contour_point[0][0], contour_point[0][1])), 1, (0, 0, 255), 1, cv2.LINE_AA)
+
+cv2.imshow('Konturok bekarikazva', img_konturok_kiemel)
+cv2.waitKey(0)
+
+contours2 = refineContours(konturok1, 0, 5000) # itt szurjuk ki a velhetoen nem epulet elemeket
 
 img_konturok_csokkentve = img.copy()
 cv2.drawContours(img_konturok_csokkentve, contours2, -1, (0, 255, 0), cv2.FILLED, cv2.LINE_AA)
@@ -132,7 +150,7 @@ cv2.drawContours(img_konturok_csokkentve, contours2, -1, (0, 255, 0), cv2.FILLED
 partialToShow4 = np.concatenate((img_alap_konturok, img_konturok_csokkentve), axis=1)
 cv2.imshow('Konturok elso szures', partialToShow4)
 cv2.waitKey(0)
-        
+
 
 
 cv2.destroyAllWindows()
