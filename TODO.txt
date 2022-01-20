@@ -141,4 +141,18 @@ https://learnopencv.com/contour-detection-using-opencv-python-c/
 
 https://www.geeksforgeeks.org/find-and-draw-contours-using-opencv-python/
 
+https://stackoverflow.com/questions/47311595/opencv-hysteresis-thresholding-implementation
+
+https://docs.opencv.org/4.x/da/d22/tutorial_py_canny.html
+
+https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#is-microsoft-windows-supported
+
+https://docs.nvidia.com/cuda/wsl-user-guide/index.html
+
+https://hub.docker.com/r/dymaxionlabs/ap-latam
+
+https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=arclength#arclength
+
+https://www.meetshah.dev/semantic-segmentation/deep-learning/pytorch/visdom/2017/06/01/semantic-segmentation-over-the-years.html
+
 
