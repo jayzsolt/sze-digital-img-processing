@@ -44,6 +44,14 @@ kerületek szintén?
 	6. tanulj elméletet
 
 	
+    TODO források rendez
+    
+    TODO lépték meghatározása
+    
+    TODO léptékhez kötött küszöbértékek méretre vonatkozóan
+    
+    
+    
 
 
 python
@@ -67,13 +75,18 @@ Jupyter - web-based interactive environment to create and share documents, texts
 
 III. Források
 
-https://learnopencv.com/contour-detection-using-opencv-python-c/
 
+Installing
 https://www.codeproject.com/Articles/5270236/Installing-OpenCV-and-ImageAI-for-Object-Detection
 
-https://github.com/OlafenwaMoses/ImageAI
+Basics
+https://learnopencv.com/contour-detection-using-opencv-python-c/
+https://www.programcreek.com/python/example/70440/cv2.findContours
 
+ImageAI
+https://github.com/OlafenwaMoses/ImageAI
 https://imageai.readthedocs.io/en/latest/
+
 
 https://www.programcreek.com/python/example/70440/cv2.findContours
 
@@ -145,11 +158,20 @@ https://stackoverflow.com/questions/47311595/opencv-hysteresis-thresholding-impl
 
 https://docs.opencv.org/4.x/da/d22/tutorial_py_canny.html
 
+
+
+Nvidia docker kovetelmenyek
 https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#is-microsoft-windows-supported
 
 https://docs.nvidia.com/cuda/wsl-user-guide/index.html
 
+
+
+NEM JÓ - kell hozzá settlements.geojson fájl.
+
 https://hub.docker.com/r/dymaxionlabs/ap-latam
+
+
 
 https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=arclength#arclength
 

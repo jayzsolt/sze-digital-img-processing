@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import cv2
 
 # win esetén char escape miatt mindenhol dupla backslash hasznalando.
-input_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\input\\07.png'
-output_img = 'C:\\Users\\micro\\Desktop\\Gepilatas\\output\\07.png'
+input_img = 'C:\\Users\\micro\\Documents\\sze-digital-img-processing\\input\\07.png'
+output_img = 'C:\\Users\\micro\\Documents\\sze-digital-img-processing\\output\\07.png'
 
 imgTargetWidth = 606
 imgTargetHeight = 630
@@ -16,14 +16,13 @@ imgTargetHeight = 434
 #minIntenzitas = 110
 minIntenzitas = 60
 
-maxIntenzitas = 255
+binThreshTargetIntenzitas = 255
 
 
 def refineContours(inputCtrs, minKerulet, maxKerulet):
     retContours = []
     for i in inputCtrs:
         currentKerulet = cv2.arcLength(i,True)
-        print(currentKerulet)
         
         if (currentKerulet >= minKerulet and currentKerulet < maxKerulet):
         # print(cv2.contourArea(i))
@@ -34,7 +33,67 @@ def refineContours(inputCtrs, minKerulet, maxKerulet):
     return retContours
 
 
+def refineContours2(inputCtrs, minMeret, maxMeret, maxTerulet):
+    retContours = []
+    ctrsBelow5 = 0
+    ctrsBelow10 = 0
+    ctrsBelow20 = 0
+    ctrsBelow50 = 0
+    ctrsBelow100 = 0
+    ctrsBelow200 = 0
+    ctrsBelow500 = 0
+    ctrsBelow1000 = 0
+    ctrsBelow10000= 0
+    for i in inputCtrs:
+        x,y,w,h = cv2.boundingRect(i)
+#        print("Kontur X width: {}, Y height: {}, korulhatarolo teglalap terulete: {}".format(w, h, (w*h)))
 
+        if w>=minMeret and w<maxMeret and h>=minMeret and h<maxMeret and w*h < maxTerulet:
+             retContours.append(i)
+                
+        if w*h < 5:
+             ctrsBelow5 += 1;
+                
+        if w*h < 10:
+             ctrsBelow10 += 1;
+                
+        if w*h < 20:
+             ctrsBelow20 += 1;
+                
+        if w*h < 50:
+             ctrsBelow50 += 1;
+                
+        if w*h < 100:
+             ctrsBelow100 += 1;
+                
+        if w*h < 200:
+             ctrsBelow200 += 1;
+                
+        if w*h < 500:
+             ctrsBelow500 += 1;
+                
+        if w*h < 1000:
+             ctrsBelow1000 += 1;
+                
+        if w*h < 10000:
+             ctrsBelow10000 += 1;
+                
+    
+    print("\n\nKonturok szama: {}\n".format(len(inputCtrs)))
+                
+    print("Korulhatarolo teglalapok  5  px2 alatt: {} db".format(ctrsBelow5))
+    print("Korulhatarolo teglalapok 10  px2 alatt: {} db".format(ctrsBelow10))
+    print("Korulhatarolo teglalapok 20  px2 alatt: {} db".format(ctrsBelow20))
+    print("Korulhatarolo teglalapok 50  px2 alatt: {} db".format(ctrsBelow50))
+    print("Korulhatarolo teglalapok 100 px2 alatt: {} db".format(ctrsBelow100))
+    print("Korulhatarolo teglalapok 200 px2 alatt: {} db".format(ctrsBelow200))
+    print("Korulhatarolo teglalapok 500 px2 alatt: {} db".format(ctrsBelow500))
+    print("Korulhatarolo teglalapok 1000px2 alatt: {} db".format(ctrsBelow1000))
+    print("Korulhatarolo teglalapok10000px2 alatt: {} db".format(ctrsBelow10000))
+    
+    
+            
+    return retContours        
 
 
 # lojuk be kb a zold hatarait
@@ -51,6 +110,7 @@ img = cv2.resize(img, (imgTargetWidth, imgTargetHeight), interpolation=cv2.INTER
 
 cv2.imshow("kiindulas", img)
 cv2.waitKey(0)
+cv2.destroyAllWindows()
 
 # színek sorrendje BGR, es nem RGB !!!
 
@@ -75,22 +135,15 @@ res1 = cv2.bitwise_and(img, img, mask=mask)
 res2 = cv2.cvtColor(res1, cv2.COLOR_BGR2GRAY)
 
 
-    
-#cv2.imshow('szurkearnyalatos', res2)
-#cv2.waitKey(0)
-
-#if not cv2.imwrite(output_img,res2):
-#    raise Exception("Hiba: output img nem hozhato letre.")
-#    # TODO output img nem készül el!!! win specifikus problema?
-    
-    
-
 
 # 3 --- keressunk alakzatokat
 
 
 res3=cv2.GaussianBlur(res2,(5,5),1) 
 res4=cv2.Canny(res3,10,50) 
+
+
+
 
 partialToShow1 = np.concatenate((res3, res4), axis=1)
 
@@ -104,7 +157,7 @@ res6 = res2
 
 # kettos kuszoboles, avagy binary threshold, valasszuk ki, milyen intenzitas felett/alatti ertekekkel szeretnenk dolgozni
 
-ret, thresh = cv2.threshold(res3, minIntenzitas, maxIntenzitas, cv2.THRESH_BINARY)
+ret, thresh = cv2.threshold(res3, minIntenzitas, binThreshTargetIntenzitas, cv2.THRESH_BINARY)
 
 cv2.imshow('Kettos kuszoboles (binary threshold) alkalmazva', thresh)
 cv2.waitKey(0)
@@ -112,55 +165,49 @@ cv2.destroyAllWindows()
 
 
 
-
-
-# hiszterezis kuszoboles
-
+# hiszterezis kuszoboles?
 
 
 
+# nezzuk meg, milyen a kep, ha szincsatornak szerint pl. pirossal dolgozunk
 
+# B, G, R channel splitting
+blue, green, red = cv2.split(img)
 
-
-
-# contours1, hierarchy1 = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) # kevesbe hatekony, itt lenyegeben ugyanolyan eredmennyel
-konturok1, hierarchy1 = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
-img_alap_konturok = img.copy()
-cv2.drawContours(img_alap_konturok, konturok1, -1, (0, 255, 0), cv2.FILLED, cv2.LINE_AA)
+# detect contours using red channel and without thresholding
+contours3, hierarchy3 = cv2.findContours(image=red, mode=cv2.RETR_TREE, method=cv2.CHAIN_APPROX_SIMPLE)
+# draw contours on the original image
+image_contour_red = img.copy()
+cv2.drawContours(image=image_contour_red, contours=contours3, contourIdx=-1, color=(0, 255, 0), thickness=2, lineType=cv2.LINE_AA)
 # see the results
-#cv2.imshow('Konturok osszes', img_alap_konturok)
-#cv2.waitKey(0)
-
-img_konturok_kiemel = img.copy()
-
-for i, contour in enumerate(konturok1): # loop over one contour area
-
-   for j, contour_point in enumerate(contour): # loop over the points
-
-       # draw a circle on the current contour coordinate
-       cv2.circle(img_konturok_kiemel, ((contour_point[0][0], contour_point[0][1])), 1, (0, 0, 255), 1, cv2.LINE_AA)
-
-cv2.imshow('Konturok bekarikazva', img_konturok_kiemel)
+cv2.imshow('Konturok - RGB csatornak kozul csak pirosat hasznalva inputkent', image_contour_red)
 cv2.waitKey(0)
-
-contours2 = refineContours(konturok1, 0, 5000) # itt szurjuk ki a velhetoen nem epulet elemeket
-
-img_konturok_csokkentve = img.copy()
-cv2.drawContours(img_konturok_csokkentve, contours2, -1, (0, 255, 0), cv2.FILLED, cv2.LINE_AA)
-# see the results
-#cv2.imshow('Konturok elso szures', img_konturok_csokkentve)
-#cv2.waitKey(0)
-
-partialToShow4 = np.concatenate((img_alap_konturok, img_konturok_csokkentve), axis=1)
-cv2.imshow('Konturok elso szures', partialToShow4)
-cv2.waitKey(0)
-
-
-
 cv2.destroyAllWindows()
 
 
+
+
+
+konturok1, hierarchy1 = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+# RETR_EXTERNAL NEM JO - az összes belső, nem érintett területet is kiemeli.
+
+img_alap_konturok = img.copy()
+cv2.drawContours(img_alap_konturok, konturok1, -1, (0, 255, 0), cv2.FILLED, cv2.LINE_AA)
+
+
+
+
+
+konturok3 = refineContours2(konturok1, 6, 890, 1000000) # itt szurjuk ki a velhetoen nem epulet elemeket
+
+img_konturok_csokkentve2 = img.copy()
+cv2.drawContours(img_konturok_csokkentve2, konturok3, -1, (0, 255, 0), cv2.FILLED, cv2.LINE_AA)
+
+partialToShow5 = np.concatenate((img_alap_konturok, img_konturok_csokkentve2), axis=1)
+cv2.imshow('Konturok masodik szures', partialToShow5)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+cv2.imwrite(output_img, img_konturok_csokkentve2)
 
 
 
@@ -296,3 +343,12 @@ cv2.destroyAllWindows()
 #drawContours(contoursImage, contours, thickness=10)
 #
 #showOpenCVImagesGrid([image, edges, linesImage, contoursImage], 2, 2, titles=["original image", "canny image", "lines image", "contours image"])
+
+
+
+### approach 5 - nem lesz jo eredmeny, furan konturozza
+
+##th3 = cv2.adaptiveThreshold(res3,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,11,2)
+#
+#cv2.imshow('Kettos kuszoboles (binary threshold) alkalmazva - adaptiv', th3)
+#cv2.waitKey(0)
